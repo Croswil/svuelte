@@ -2,9 +2,10 @@
   "name": "svuelte",
   "version": "0.1.0",
   "description": "A Vue to Svelte component migration tool",
-  "main": "index.js",
+  "main": "test.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node test.js",
+    "go": "node index.js"
   },
   "repository": {
     "type": "git",

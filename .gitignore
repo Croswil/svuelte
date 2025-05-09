@@ -1,1 +1,10 @@
 node_modules
+convert
+**.svelte
+**.vue
+**.lock
+package-lock.json
+out*.*
+test*.*
+
+
