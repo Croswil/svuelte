@@ -85,8 +85,8 @@ import { createEventDispatcher, tick, onMount, onDestroy } from 'svelte';`);
 
   tt.push(data);
   let codice = tt.join('');
-  codice = codice.replace(/on\:(\w+)\s*="{([^]*?)\}\"/gim, (all, p1, p2) => {
-    return `on:${p1}={(e)=>${p2.replaceAll('$event', 'e.detail')}}`
+  codice = codice.replace(/on\:([\w\.]+)\s*="{([^]*?)\}\"/gim, (all, p1, p2) => {
+    return `on:${p1}={(e)=>{${p2.replaceAll('$event', 'e.detail')}}}`
   })
     .replace(/"{([^]*?)}"/gim, (all, p1) => {
       return `{${p1}}`
@@ -287,10 +287,6 @@ function parseinputPath(inputPath) {
     console.error(`Error while reading file`, inputPath);
     process.exit(1);
   }
-
-
-
-
 
   const sfc = compiler.parseComponent(inputContent);
   let output = [];
@@ -568,7 +564,7 @@ ${methods.join('\n\n')}
   }
 
   output.push(`\n${codice}`)
-  fs.writeFileSync(outputPath, output.join(''), 'utf8');
+  fs.writeFileSync(outputPath, output.join('').replaceAll('$emit(', 'emit('), 'utf8');
 }
 
 
